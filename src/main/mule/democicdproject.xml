@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b2043eb2-6179-4b0b-9f05-24b77fa4fe00" >
+		<http:listener-connection host="localhost" port="8086" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="e3c72b4f-2f80-4c59-a7ab-15c11487f89e" file="properties\config.yaml" />
+	<flow name="democicdprojectFlow" doc:id="0c56246a-c386-48d8-ad5f-ef98f74c594f" >
+		<http:listener doc:name="Listener" doc:id="df90ee03-e99a-4c3c-a93f-d7c5c9f49999" config-ref="HTTP_Listener_config" path="/api/cicd"/>
+		<logger level="INFO" doc:name="Before Request" doc:id="757c0189-9d27-4f67-a551-77be9ec9bfd1" message='#["Process is Started....."]'/>
+		<ee:transform doc:name="Transform Message" doc:id="9e45c102-a1bb-4549-8e18-18e667a83f34" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Project": "CICD"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="After Request" doc:id="ccd2384f-d78b-4b5c-80d5-8063afa65f87" message='#["Process is Ended......"]'/>
+	</flow>
+</mule>
