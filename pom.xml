@@ -35,7 +35,7 @@
 				      <muleVersion>${deployment.app.runtime}</muleVersion>
 				      <username>${anypoint.username}</username>
 				      <password>${anypoint.password}</password>
-				      <applicationName>${project.artifactId}</applicationName>
+				      <applicationName>democicdproject</applicationName>
 				      <environment>${env}</environment>
 				      <region>${deployment.region}</region>
 				      <workers>${deployment.workers}</workers>
